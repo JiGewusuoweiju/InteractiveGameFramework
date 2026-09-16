@@ -34,3 +34,9 @@
 
 - 用户已将公钥加入 GitHub；使用本机 Ed25519 密钥执行 `ssh -T`，收到 `Hi JiGewusuoweiju! You've successfully authenticated`。GitHub 不提供 shell，命令退出码 1 是该测试的正常结果。
 - 仅验证账号 SSH 认证；尚未初始化当前目录、连接远程仓库或推送代码。
+
+## 2026-09-16 Git 仓库初始化与首次推送
+
+- 远程 `git@github.com:JiGewusuoweiju/InteractiveGameFramework.git` 首次检查无分支；本地初始化 `main`，只为本仓库设置 GitHub 隐私提交身份。
+- `npm run check`、暂存区空白检查通过；暂存文件检查未包含私钥、`.env`、`node_modules`、编辑器缓存或大视频。
+- 首次提交 `512fd5c7d99fe7dd5137386470728cb7f20ee5a7` 已推送到 `origin/main`；首次核对时远程 `refs/heads/main` 与本地 HEAD 一致。推送记录随后同步到状态文档。
