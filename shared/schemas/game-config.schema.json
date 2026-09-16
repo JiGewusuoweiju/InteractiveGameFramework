@@ -1,0 +1,211 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "gameId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "releaseVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "startNodeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "theme": {
+      "type": "string",
+      "minLength": 1
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ]
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "const": "video"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "url"
+        ]
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "video",
+              "ending"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "videoAssetId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "targetNodeId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "conditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "variable": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "operator": {
+                        "enum": [
+                          "eq",
+                          "neq"
+                        ]
+                      },
+                      "value": {
+                        "type": [
+                          "string",
+                          "number",
+                          "boolean"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "variable",
+                      "operator",
+                      "value"
+                    ]
+                  }
+                },
+                "effects": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": [
+                      "string",
+                      "number",
+                      "boolean"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "text",
+                "targetNodeId",
+                "conditions",
+                "effects"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "text",
+          "choices"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "video"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "videoAssetId"
+              ],
+              "properties": {
+                "choices": {
+                  "minItems": 1
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "choices": {
+                  "maxItems": 0
+                }
+              },
+              "not": {
+                "required": [
+                  "videoAssetId"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "gameId",
+    "title",
+    "releaseVersion",
+    "startNodeId",
+    "theme",
+    "variables",
+    "assets",
+    "nodes"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

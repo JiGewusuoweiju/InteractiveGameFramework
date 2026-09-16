@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "gameId": "demo-game",
+  "title": "互动影像演示",
+  "releaseVersion": 1,
+  "startNodeId": "intro",
+  "theme": "dark",
+  "variables": {
+    "visited": false
+  },
+  "assets": [
+    {
+      "id": "intro-video",
+      "kind": "video",
+      "url": "https://example.invalid/demo/intro.mp4"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "intro",
+      "type": "video",
+      "text": "请选择下一步",
+      "videoAssetId": "intro-video",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "继续",
+          "targetNodeId": "end",
+          "conditions": [
+            {
+              "variable": "visited",
+              "operator": "eq",
+              "value": false
+            }
+          ],
+          "effects": {
+            "visited": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "type": "ending",
+      "text": "演示结束",
+      "choices": []
+    }
+  ]
+}

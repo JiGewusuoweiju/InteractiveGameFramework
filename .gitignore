@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+coverage/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+game-client/library/
+game-client/temp/
+game-client/local/
+assets-local/*
+!assets-local/README.md
+game-data/releases/*
+!game-data/releases/README.md

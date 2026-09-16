@@ -1,0 +1,28 @@
+{
+  "name": "interactive-game-framework",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "game-client",
+    "admin-web",
+    "server",
+    "shared"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "npm run typecheck && npm run validate:config && npm run check:structure",
+    "typecheck": "tsc --noEmit",
+    "validate:config": "node tools/validate-config.mjs examples/demo-game/game.json",
+    "check:structure": "node tools/check-structure.mjs",
+    "dev:server": "tsx server/src/main.ts"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "tsx": "^4.20.0",
+    "@types/node": "^22.0.0",
+    "ajv": "^8.17.1"
+  }
+}
